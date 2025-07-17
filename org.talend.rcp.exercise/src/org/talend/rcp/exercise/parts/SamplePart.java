@@ -1,48 +1,75 @@
 package org.talend.rcp.exercise.parts;
 
-import java.util.Arrays;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
 
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.widgets.TextFactory;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.rcp.exercise.providers.ColumnFileLabelProvider;
+import org.talend.rcp.exercise.providers.TreeFileContentProvider;
+import org.talend.rcp.exercise.services.FileSystemService;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 
 public class SamplePart {
 
+	/** TODO: Set path as input somewhere, then dynamically reload file tree **/
+	private static final String ROOT_PATH = "/Users/tvm/Documents/studio/onboarding/eclipsercpswtpractice";
+
 	private TableViewer tableViewer;
+
+	private TreeViewer treeViewer;
 
 	@Inject
 	private MPart part;
 
 	@PostConstruct
-	public void createComposite(Composite parent) {
-		parent.setLayout(new GridLayout(1, false));
+	public void createComposite(Composite parent) throws IOException {
+		/*
+		 * parent.setLayout(new GridLayout(1, false));
+		 * 
+		 * TextFactory.newText(SWT.BORDER) //
+		 * .message("Enter text to mark part as dirty") // .onModify(e ->
+		 * part.setDirty(true)) // .layoutData(new GridData(GridData.FILL_HORIZONTAL))//
+		 * .create(parent);
+		 * 
+		 * tableViewer = new TableViewer(parent);
+		 * 
+		 * tableViewer.setContentProvider(ArrayContentProvider.getInstance());
+		 * tableViewer.setInput(createInitialDataModel());
+		 * tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+		 */
 
-		TextFactory.newText(SWT.BORDER) //
-				.message("Enter text to mark part as dirty") //
-				.onModify(e -> part.setDirty(true)) //
-				.layoutData(new GridData(GridData.FILL_HORIZONTAL))//
-				.create(parent);
+		treeViewer = new TreeViewer(parent);
+		treeViewer.setContentProvider(new TreeFileContentProvider());
+		treeViewer.getTree().setHeaderVisible(true);
+		treeViewer.getTree().setLinesVisible(true);
 
-		tableViewer = new TableViewer(parent);
+		TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+		viewerColumn.getColumn().setWidth(300);
+		viewerColumn.getColumn().setText("File names");
+		viewerColumn.setLabelProvider(new ColumnFileLabelProvider());
 
-		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-		tableViewer.setInput(createInitialDataModel());
-		tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+		List<File> filesInRootDirectory = FileSystemService.getFilesInDirectory(ROOT_PATH);
+		treeViewer.setInput(filesInRootDirectory);
+
+		GridLayoutFactory.fillDefaults().generateLayout(parent);
 	}
 
 	@Focus
 	public void setFocus() {
-		tableViewer.getTable().setFocus();
+		if (tableViewer != null) {
+			tableViewer.getTable().setFocus();
+		}
 	}
 
 	@Persist
@@ -50,7 +77,12 @@ public class SamplePart {
 		part.setDirty(false);
 	}
 
-	private List<String> createInitialDataModel() {
-		return Arrays.asList("Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5");
+	private List<String> createInitialDataModel() throws IOException {
+		List<File> files = FileSystemService.getNestedFilesInDirectory(ROOT_PATH);
+		List<String> fileNames = files.stream().map(File::getName).toList();
+
+		return fileNames;
+
 	}
+
 }
