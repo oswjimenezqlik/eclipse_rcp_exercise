@@ -3,7 +3,7 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.window.main" label="Eclipse RCP Application" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_6wlLksgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.partsashcontainer.sample" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_6wlLk8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.partstack.sample">
-        <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.part.sample" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.SamplePart" label="Sample Part" iconURI="platform:/plugin/org.talend.rcp.exercise/icons/home.svg"/>
+        <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.part.sample" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileTreePart" label="Files" iconURI="platform:/plugin/org.talend.rcp.exercise/icons/home.svg"/>
       </children>
       <children xsi:type="basic:PartSashContainer" xmi:id="_ELlRYGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partsashcontainer.0">
         <children xsi:type="basic:PartStack" xmi:id="_FN64IGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partstack.0">
