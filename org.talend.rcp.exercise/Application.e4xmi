@@ -10,7 +10,7 @@
           <children xsi:type="basic:Part" xmi:id="_MugUsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileeditor" label="File Editor" iconURI="platform:/plugin/org.talend.rcp.exercise/FileEditor.gif"/>
         </children>
         <children xsi:type="basic:PartStack" xmi:id="_FvetEGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partstack.1">
-          <children xsi:type="basic:Part" xmi:id="_QwYOsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileinfo" label="File info" iconURI="platform:/plugin/org.talend.rcp.exercise/message_info.png"/>
+          <children xsi:type="basic:Part" xmi:id="_QwYOsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileinfo" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileInfoPart" label="File info" iconURI="platform:/plugin/org.talend.rcp.exercise/message_info.png" tooltip=""/>
         </children>
       </children>
     </children>

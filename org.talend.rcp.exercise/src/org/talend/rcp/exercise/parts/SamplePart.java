@@ -23,7 +23,7 @@ import jakarta.inject.Inject;
 public class SamplePart {
 
 	/** TODO: Set path as input somewhere, then dynamically reload file tree **/
-	private static final String ROOT_PATH = "/Users/tvm/Documents/studio/onboarding/eclipsercpswtpractice";
+	private static final String ROOT_PATH = "/Users/tvm/Documents/studio/onboarding/exercise-rcp-swt-jface/root-folder/eclipsercpswtpractice";
 
 	private TableViewer tableViewer;
 
@@ -34,20 +34,6 @@ public class SamplePart {
 
 	@PostConstruct
 	public void createComposite(Composite parent) throws IOException {
-		/*
-		 * parent.setLayout(new GridLayout(1, false));
-		 * 
-		 * TextFactory.newText(SWT.BORDER) //
-		 * .message("Enter text to mark part as dirty") // .onModify(e ->
-		 * part.setDirty(true)) // .layoutData(new GridData(GridData.FILL_HORIZONTAL))//
-		 * .create(parent);
-		 * 
-		 * tableViewer = new TableViewer(parent);
-		 * 
-		 * tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-		 * tableViewer.setInput(createInitialDataModel());
-		 * tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-		 */
 
 		treeViewer = new TreeViewer(parent);
 		treeViewer.setContentProvider(new TreeFileContentProvider());
@@ -75,14 +61,6 @@ public class SamplePart {
 	@Persist
 	public void save() {
 		part.setDirty(false);
-	}
-
-	private List<String> createInitialDataModel() throws IOException {
-		List<File> files = FileSystemService.getNestedFilesInDirectory(ROOT_PATH);
-		List<String> fileNames = files.stream().map(File::getName).toList();
-
-		return fileNames;
-
 	}
 
 }
