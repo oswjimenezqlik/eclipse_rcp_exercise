@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -33,9 +32,6 @@ public class FileInfoPart {
 	private Label sizeValueLabel;
 	private Label dateModifiedValueLabel;
 	private Label kindValueLabel;
-
-	@Inject
-	private MPart part;
 
 	private Composite container;
 
@@ -81,7 +77,7 @@ public class FileInfoPart {
 	@Inject
 	public void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) File file) {
 		if (file != null) {
-			System.out.println("FileInfoPart setSelection" + file);
+			System.out.println("&FileInfoPart setSelection" + file);
 			nameValueLabel.setText(file.getName());
 			sizeValueLabel.setText(String.valueOf(file.length()));
 			dateModifiedValueLabel.setText(String.valueOf(file.lastModified()));
