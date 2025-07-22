@@ -95,7 +95,6 @@ public class FileEditPart extends EditorPart {
 	}
 
 	protected void initPartControl() {
-
 		int VERTICAL_RULER_WIDTH = 12;
 
 		int styles = SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION;
@@ -204,5 +203,4 @@ public class FileEditPart extends EditorPart {
 			decoratorSupport.dispose();
 		}
 	}
-
 }

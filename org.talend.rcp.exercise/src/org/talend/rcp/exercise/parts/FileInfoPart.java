@@ -2,8 +2,6 @@ package org.talend.rcp.exercise.parts;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -16,6 +14,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.rcp.exercise.constants.ColorConstants;
+import org.talend.rcp.exercise.services.DateUtils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
@@ -23,12 +22,8 @@ import jakarta.inject.Named;
 
 public class FileInfoPart {
 
-	private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss"; // TODO: refactor in dateconstants
-	private static final String FILE_TYPE = "Document"; // TODO: refactor in constants
-	private static final String FOLDER_TYPE = "Folder"; // TODO: refactor in constants
-
-	private static final int MIN_INFO_LABEL_WIDTH = 120;
-	private static final int MIN_INFO_LABLE_HEIGHT = 50;
+	private static final int MIN_INFO_LABEL_WIDTH = 30;
+	private static final int MIN_INFO_LABLE_HEIGHT = 10;
 
 	private static final int GRID_VERTICAL_SPACING = 10;
 	private static final int GRID_HORIZONTAL_SPACING = 0;
@@ -58,7 +53,7 @@ public class FileInfoPart {
 		pathValueLabel = createAndAppendLabel(container, "");
 
 		// size
-		createAndAppendLabel(container, "Size");
+		createAndAppendLabel(container, "Size (KB)");
 		sizeValueLabel = createAndAppendLabel(container, "");
 
 		// date
@@ -89,18 +84,10 @@ public class FileInfoPart {
 			System.out.println("&FileInfoPart setSelection" + file);
 			nameValueLabel.setText(file.getName());
 			sizeValueLabel.setText(String.valueOf(file.length()));
-			dateModifiedValueLabel.setText(String.valueOf(file.lastModified()));
-			kindValueLabel.setText(file.isDirectory() ? FOLDER_TYPE : FILE_TYPE);
+			dateModifiedValueLabel.setText(DateUtils.formatDate(file.lastModified()));
+			kindValueLabel.setText(file.isDirectory() ? FileType.FOLDER.getLabel() : FileType.DOCUMENT.getLabel());
 			pathValueLabel.setText(file.getPath());
 			container.layout(true, true); // refresh composite
 		}
-	}
-
-	/** TODO: refactor into Date service or utils **/
-	protected String formatDate(long lastModified) {
-		Date date = new Date(lastModified);
-		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
-		return formatter.format(date);
-
 	}
 }
