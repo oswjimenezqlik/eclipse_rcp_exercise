@@ -6,6 +6,10 @@ import java.util.List;
 public class CsvRow {
 
 	List<CsvCell> cells;
+	
+	public CsvRow() {
+		this.cells = new ArrayList<>();
+	}
 
 	public void setCells(String... cellvalues) {
 		cells = new ArrayList<>();

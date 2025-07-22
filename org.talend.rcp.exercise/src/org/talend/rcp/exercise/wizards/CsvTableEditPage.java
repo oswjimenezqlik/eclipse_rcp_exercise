@@ -1,17 +1,20 @@
 package org.talend.rcp.exercise.wizards;
 
+import java.io.File;
+
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.talend.rcp.exercise.model.CsvContent;
+import org.talend.rcp.exercise.model.CsvContentLoader;
 import org.talend.rcp.exercise.model.CsvRow;
 
 public class CsvTableEditPage extends WizardPage {
@@ -19,14 +22,19 @@ public class CsvTableEditPage extends WizardPage {
 	private static final String PAGE_TITLE = "Csv Edit Table Page";
 	private static final String PAGE_DESCRIPTION = "Csv Table editor";
 
+	private File csvFile;
+
+	private CsvContent csvContent;
+
 	private Composite container;
 
 	private TableViewer tableViewer;
 
-	public CsvTableEditPage() {
+	public CsvTableEditPage(File csvFile) {
 		super(PAGE_TITLE);
 		setTitle(PAGE_TITLE);
 		setDescription(PAGE_DESCRIPTION);
+		this.csvFile = csvFile;
 	}
 
 	@Override
@@ -40,7 +48,7 @@ public class CsvTableEditPage extends WizardPage {
 		tableViewer = new TableViewer(container,
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
-		CsvContent csvContent = createCsvContent();
+		csvContent = createCsvContent();
 		createColumns(csvContent);
 
 		// make lines and header visible
@@ -51,19 +59,15 @@ public class CsvTableEditPage extends WizardPage {
 		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
 		tableViewer.setInput(csvContent.getRows());
 
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		// required to avoid an error in the system
 		setControl(container);
 		setPageComplete(false);
+
+		GridLayoutFactory.fillDefaults().generateLayout(container);
 	}
 
 	private CsvContent createCsvContent() {
-		CsvContent csvContent = new CsvContent();
-		csvContent.setHeader("Id", "First", "Last", "Number", "Street", "City", "State");
-		csvContent.addRows("2", "Bill", "Coolidge", "85013", "Via Real", "Austin", "IL");
-		csvContent.addRows("3", "Thomas", "Coolidge", "63489", "Lindbergh Blvd", "Springfield", "ca");
-		csvContent.addRows("4", "Harry", "Ford", "97249", "Monroe Street", "Salt Lake City", "ca");
-		return csvContent;
+		return CsvContentLoader.fromFile(csvFile);
 	}
 
 	private void createColumns(CsvContent csvContent) {
@@ -87,7 +91,7 @@ public class CsvTableEditPage extends WizardPage {
 			}
 		});
 
-		viewerColumn.setEditingSupport(new CsvContentEditingSupport(tableViewer, columnIndex));
+		viewerColumn.setEditingSupport(new CsvContentEditingSupport(this, tableViewer, columnIndex));
 
 		return viewerColumn;
 
@@ -98,5 +102,9 @@ public class CsvTableEditPage extends WizardPage {
 	 */
 	public void setFocus() {
 		tableViewer.getControl().setFocus();
+	}
+
+	public void saveCsvContents() {
+		CsvContentLoader.toFile(csvContent, csvFile);
 	}
 }

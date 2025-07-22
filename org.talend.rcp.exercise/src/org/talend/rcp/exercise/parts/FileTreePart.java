@@ -96,7 +96,7 @@ public class FileTreePart {
 		final int width = 300;
 		final int height = 150;
 
-		WizardDialog dialog = new WizardDialog(container.getShell(), new CsvEditWizard());
+		WizardDialog dialog = new WizardDialog(container.getShell(), new CsvEditWizard(csv));
 		dialog.setPageSize(width, height);
 		if (dialog.open() == Window.OK) {
 			System.out.println("Ok pressed");
