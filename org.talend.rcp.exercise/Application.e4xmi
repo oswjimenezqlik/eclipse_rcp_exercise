@@ -3,7 +3,11 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.window.main" label="Eclipse RCP Application" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_6wlLksgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.partsashcontainer.sample" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_6wlLk8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.partstack.sample">
-        <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.part.sample" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileTreePart" label="Files" iconURI="platform:/plugin/org.talend.rcp.exercise/icons/home.svg"/>
+        <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.part.sample" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileTreePart" label="Files" iconURI="platform:/plugin/org.talend.rcp.exercise/icons/home.svg">
+          <menus xsi:type="menu:PopupMenu" xmi:id="_teXyMGbyEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.popupmenu.countfiles" label="Count files">
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_0XsacGbyEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.handledmenuitem.files.countfile" command="_PgGXsGbeEfCoEPTddtd-cA"/>
+          </menus>
+        </children>
       </children>
       <children xsi:type="basic:PartSashContainer" xmi:id="_ELlRYGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partsashcontainer.0">
         <children xsi:type="basic:PartStack" xmi:id="_FN64IGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partstack.0">
@@ -35,6 +39,7 @@
   <handlers xmi:id="_6wlLgcgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.openCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.OpenHandler" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.saveCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.aboutCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_toeggGbeEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.handler.folder.countfiles" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handler.FileCountHandler" command="_PgGXsGbeEfCoEPTddtd-cA"/>
   <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.bindingtable" bindingContext="_6wlLecgZEeSyMNYR5xypkQ">
     <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
     <bindings xmi:id="_6wlLgsgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.keybinding.m1o" keySequence="M1+O" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
@@ -49,6 +54,7 @@
   <commands xmi:id="_6wlLgMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.open" commandName="openCommand"/>
   <commands xmi:id="_6wlLg8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
   <commands xmi:id="_6wlLhsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <commands xmi:id="_PgGXsGbeEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.command.folder.countfiles" commandName="Calculate files inside it" description="Calculate files inside folder (recursive)"/>
   <addons xmi:id="_6wlLcsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_6wlLc8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_6wlLdMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

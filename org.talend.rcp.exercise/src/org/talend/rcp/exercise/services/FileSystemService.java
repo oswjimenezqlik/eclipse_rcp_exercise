@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -16,7 +17,16 @@ public class FileSystemService {
 		return Files.walk(Path.of(directory)).map(Path::toFile).toList();
 	}
 
-	public static List<File> getFilesInDirectory(String directory) throws IOException {
-		return Files.list(Paths.get(directory)).map(Path::toFile).toList();
+	public static List<File> getFilesInDirectory(String directory) {
+		List<File> files = new ArrayList<>();
+
+		try {
+			files = Files.list(Paths.get(directory)).map(Path::toFile).toList();
+		} catch (IOException e) {
+			System.err.println(
+					FileSystemService.class.getSimpleName() + "- error getting files in directory: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return files;
 	}
 }

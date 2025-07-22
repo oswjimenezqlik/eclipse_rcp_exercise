@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -43,6 +44,9 @@ public class FileTreePart {
 
 	@Inject
 	private MPart part;
+
+	@Inject
+	private EMenuService menuService;
 
 	@Inject
 	private ESelectionService selectionService;
@@ -89,6 +93,7 @@ public class FileTreePart {
 			}
 		});
 
+		menuService.registerContextMenu(treeViewer.getControl(), "org.talend.rcp.exercise.popupmenu.countfiles");
 		GridLayoutFactory.fillDefaults().generateLayout(container);
 	}
 
