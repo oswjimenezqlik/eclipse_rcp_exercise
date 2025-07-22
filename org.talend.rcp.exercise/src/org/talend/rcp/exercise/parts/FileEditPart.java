@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
@@ -27,6 +28,7 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -52,6 +54,9 @@ public class FileEditPart extends EditorPart {
 	@Inject
 	private MDirtyable dirtyable;
 
+	@Inject
+	private MPart part;
+
 	protected SourceViewer sourceViewer;
 	protected SourceViewerDecorationSupport decoratorSupport;
 	protected IDocument document;
@@ -65,6 +70,18 @@ public class FileEditPart extends EditorPart {
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 		// view non constructed by default
+	}
+	
+	protected void resetPart() {
+		for (Control child : parent.getChildren()) {
+		    child.dispose();
+		}
+		sourceViewer = null;
+		decoratorSupport = null;
+		document = null;
+		annotationModel = null;
+		GridLayoutFactory.fillDefaults().generateLayout(parent);
+		parent.layout(true, true); // refresh composite
 	}
 
 	protected void initPartControl() {
@@ -117,23 +134,27 @@ public class FileEditPart extends EditorPart {
 	@Inject
 	public void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) File file) {
 		if ((file == null) || (!file.getName().endsWith(FileConstants.TXT_EXTENSION))) {
+			if (document != null) {
+				resetPart();
+			}
 			return;
 		}
 		partService.showPart("org.talend.rcp.exercise.part.fileeditor", PartState.VISIBLE);
 		System.out.println(">>>FileEditPart setSelection" + file);
 		selectedFile = file;
+		part.setLabel(selectedFile.getName());
 		if (document == null) {
 			initPartControl();
 			parent.layout(true, true); // refresh composite
 		}
-		String textContent = FileSystemService.getFileContent(file);
+		String textContent = FileSystemService.getFileContent(selectedFile);
 
 		document.set(textContent);
 		dirtyable.setDirty(false);
 	}
 
 	@Persist
-	public void doSave(IProgressMonitor monitor) {
+	public void doSave(@Optional IProgressMonitor monitor) {
 		if ((document != null) && (selectedFile != null) && isDirty()) {
 			FileSystemService.writeFileContents(selectedFile, document.get());
 			dirtyable.setDirty(false);
