@@ -39,7 +39,7 @@
   <handlers xmi:id="_6wlLgcgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.openCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.OpenHandler" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.saveCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.handler.aboutCommand" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
-  <handlers xmi:id="_toeggGbeEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.handler.folder.countfiles" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handler.FileCountHandler" command="_PgGXsGbeEfCoEPTddtd-cA"/>
+  <handlers xmi:id="_toeggGbeEfCoEPTddtd-cA" elementId="org.talend.rcp.exercise.handler.folder.countfiles" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.handlers.FileCountHandler" command="_PgGXsGbeEfCoEPTddtd-cA"/>
   <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.bindingtable" bindingContext="_6wlLecgZEeSyMNYR5xypkQ">
     <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
     <bindings xmi:id="_6wlLgsgZEeSyMNYR5xypkQ" elementId="org.talend.rcp.exercise.keybinding.m1o" keySequence="M1+O" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
