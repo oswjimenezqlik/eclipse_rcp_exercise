@@ -5,9 +5,11 @@ import java.io.File;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -57,6 +59,12 @@ public class FileEditPart extends EditorPart {
 	@Inject
 	private MPart part;
 
+	@Inject
+	EModelService modelService;
+
+	@Inject
+	MApplication application;
+
 	protected SourceViewer sourceViewer;
 	protected SourceViewerDecorationSupport decoratorSupport;
 	protected IDocument document;
@@ -69,12 +77,14 @@ public class FileEditPart extends EditorPart {
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-		// view non constructed by default
+		// empty part by default
 	}
 
 	protected void resetPart() {
 		for (Control child : parent.getChildren()) {
-			child.dispose();
+			if (child != null && !child.isDisposed()) {
+				child.dispose();
+			}
 		}
 		sourceViewer = null;
 		decoratorSupport = null;
@@ -89,6 +99,7 @@ public class FileEditPart extends EditorPart {
 		int VERTICAL_RULER_WIDTH = 12;
 
 		int styles = SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION;
+
 		ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
 		IOverviewRuler overviewRuler = new OverviewRuler(null, VERTICAL_RULER_WIDTH, sharedColors);
 		CompositeRuler ruler = new CompositeRuler(VERTICAL_RULER_WIDTH);
@@ -155,6 +166,7 @@ public class FileEditPart extends EditorPart {
 
 	@Persist
 	public void doSave(@Optional IProgressMonitor monitor) {
+		System.out.println("Saving file contents");
 		if ((document != null) && (selectedFile != null) && isDirty()) {
 			FileSystemService.writeFileContents(selectedFile, document.get());
 			dirtyable.setDirty(false);
