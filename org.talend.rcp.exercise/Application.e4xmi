@@ -11,7 +11,7 @@
       </children>
       <children xsi:type="basic:PartSashContainer" xmi:id="_ELlRYGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partsashcontainer.0">
         <children xsi:type="basic:PartStack" xmi:id="_FN64IGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partstack.0">
-          <children xsi:type="basic:Part" xmi:id="_MugUsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileeditor" contributionURI="bundleclass://org.eclipse.ui.editors/org.eclipse.ui.editors.text.TextEditor" label="File Editor" iconURI="platform:/plugin/org.talend.rcp.exercise/FileEditor.gif"/>
+          <children xsi:type="basic:Part" xmi:id="_MugUsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileeditor" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileEditPart" label="File Editor" iconURI="platform:/plugin/org.talend.rcp.exercise/FileEditor.gif" closeable="true"/>
         </children>
         <children xsi:type="basic:PartStack" xmi:id="_FvetEGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.partstack.1">
           <children xsi:type="basic:Part" xmi:id="_QwYOsGO7EfC5NYFcvQ5cuA" elementId="org.talend.rcp.exercise.part.fileinfo" contributionURI="bundleclass://org.talend.rcp.exercise/org.talend.rcp.exercise.parts.FileInfoPart" label="File info" iconURI="platform:/plugin/org.talend.rcp.exercise/message_info.png" tooltip=""/>

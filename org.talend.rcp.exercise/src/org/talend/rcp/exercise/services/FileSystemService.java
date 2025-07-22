@@ -13,9 +13,23 @@ import java.util.List;
  */
 public class FileSystemService {
 
-	
+	public static String getFileContent(File file) {
+		String fileContent = "";
+
+		try {
+			fileContent = Files.readString(file.toPath());
+		} catch (Exception e) {
+			System.out.println(FileSystemService.class.getSimpleName()
+					+ " - there was an error getting file contents for file " + file.getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+		return fileContent;
+	}
+
 	/**
-	 * Get file count within the selected directory. The folder given as parameter is excluded from the count
+	 * Get file count within the selected directory. The folder given as parameter
+	 * is excluded from the count
+	 * 
 	 * @param directory
 	 * @return number of files inside the directory
 	 * @throws IOException if an error arises reading the file
@@ -24,9 +38,9 @@ public class FileSystemService {
 		return Files.list(Paths.get(directory)).map(Path::toFile).count();
 	}
 
-	
 	/**
 	 * Get all files and folders from a given root path.
+	 * 
 	 * @param directory
 	 * @return
 	 */
