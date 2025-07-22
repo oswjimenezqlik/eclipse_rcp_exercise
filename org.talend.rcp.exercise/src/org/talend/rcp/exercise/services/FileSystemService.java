@@ -56,4 +56,14 @@ public class FileSystemService {
 		}
 		return files;
 	}
+
+	public static void writeFileContents(File file, String string) {
+		try {
+			Files.writeString(file.toPath(), string);
+		} catch (IOException e) {
+			System.err.println(FileSystemService.class.getSimpleName() + "- error writing contents to file "
+					+ file.getName() + "" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 }

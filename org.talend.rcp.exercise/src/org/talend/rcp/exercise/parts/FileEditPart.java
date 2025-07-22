@@ -4,12 +4,16 @@ import java.io.File;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.di.Persist;
+import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.AnnotationModel;
@@ -38,12 +42,15 @@ import jakarta.inject.Named;
 
 public class FileEditPart extends EditorPart {
 
-	private boolean dirty;
-
 	private Composite parent;
+
+	private File selectedFile;
 
 	@Inject
 	EPartService partService;
+
+	@Inject
+	private MDirtyable dirtyable;
 
 	protected SourceViewer sourceViewer;
 	protected SourceViewerDecorationSupport decoratorSupport;
@@ -77,8 +84,21 @@ public class FileEditPart extends EditorPart {
 		sourceViewer = new SourceViewer(parent, ruler, overviewRuler, true, styles);
 		sourceViewer.configure(new SourceViewerConfiguration());
 
-		decoratorSupport = new SourceViewerDecorationSupport(sourceViewer, overviewRuler, null, sharedColors);
+		document.addDocumentListener(new IDocumentListener() {
 
+			@Override
+			public void documentAboutToBeChanged(DocumentEvent event) {
+
+			}
+
+			@Override
+			public void documentChanged(DocumentEvent event) {
+				dirtyable.setDirty(true);
+			}
+
+		});
+
+		decoratorSupport = new SourceViewerDecorationSupport(sourceViewer, overviewRuler, null, sharedColors);
 		decoratorSupport.install(EditorsPlugin.getDefault().getPreferenceStore());
 
 		sourceViewer.setDocument(document, annotationModel);
@@ -101,6 +121,7 @@ public class FileEditPart extends EditorPart {
 		}
 		partService.showPart("org.talend.rcp.exercise.part.fileeditor", PartState.VISIBLE);
 		System.out.println(">>>FileEditPart setSelection" + file);
+		selectedFile = file;
 		if (document == null) {
 			initPartControl();
 			parent.layout(true, true); // refresh composite
@@ -108,12 +129,15 @@ public class FileEditPart extends EditorPart {
 		String textContent = FileSystemService.getFileContent(file);
 
 		document.set(textContent);
-		dirty = false;
+		dirtyable.setDirty(false);
 	}
 
-	@Override
+	@Persist
 	public void doSave(IProgressMonitor monitor) {
-
+		if ((document != null) && (selectedFile != null) && isDirty()) {
+			FileSystemService.writeFileContents(selectedFile, document.get());
+			dirtyable.setDirty(false);
+		}
 	}
 
 	@Override
@@ -129,7 +153,7 @@ public class FileEditPart extends EditorPart {
 
 	@Override
 	public boolean isDirty() {
-		return dirty;
+		return dirtyable.isDirty();
 	}
 
 	@Override
@@ -145,4 +169,5 @@ public class FileEditPart extends EditorPart {
 	public void dispose() {
 		decoratorSupport.dispose();
 	}
+
 }
