@@ -71,10 +71,10 @@ public class FileEditPart extends EditorPart {
 		this.parent = parent;
 		// view non constructed by default
 	}
-	
+
 	protected void resetPart() {
 		for (Control child : parent.getChildren()) {
-		    child.dispose();
+			child.dispose();
 		}
 		sourceViewer = null;
 		decoratorSupport = null;
@@ -188,7 +188,9 @@ public class FileEditPart extends EditorPart {
 
 	@Override
 	public void dispose() {
-		decoratorSupport.dispose();
+		if (decoratorSupport != null) {
+			decoratorSupport.dispose();
+		}
 	}
 
 }
