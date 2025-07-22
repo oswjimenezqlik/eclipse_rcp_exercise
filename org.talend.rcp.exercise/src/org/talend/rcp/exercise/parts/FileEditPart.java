@@ -49,6 +49,8 @@ public class FileEditPart extends EditorPart {
 	private Composite parent;
 
 	private File selectedFile;
+	
+	private String defaultLabel;
 
 	@Inject
 	EPartService partService;
@@ -77,10 +79,12 @@ public class FileEditPart extends EditorPart {
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
+		this.defaultLabel = part.getLabel();
 		// empty part by default
 	}
 
 	protected void resetPart() {
+		part.setLabel(defaultLabel);
 		for (Control child : parent.getChildren()) {
 			if (child != null && !child.isDisposed()) {
 				child.dispose();
@@ -91,6 +95,7 @@ public class FileEditPart extends EditorPart {
 		document = null;
 		annotationModel = null;
 		GridLayoutFactory.fillDefaults().generateLayout(parent);
+		dirtyable.setDirty(false);
 		parent.layout(true, true); // refresh composite
 	}
 
