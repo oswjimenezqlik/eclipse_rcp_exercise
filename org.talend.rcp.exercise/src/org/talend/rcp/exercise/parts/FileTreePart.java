@@ -36,11 +36,14 @@ public class FileTreePart {
 	/** TODO: Set path as input somewhere, then dynamically reload file tree **/
 	private static final String ROOT_PATH = "/Users/tvm/Documents/studio/onboarding/exercise-rcp-swt-jface/root-folder/eclipsercpswtpractice";
 
+	private static final int EDIT_CSV_WIZARD_WIDHT = 700;
+	private static final int EDIT_CSV_WIZARD_HEIGHT = 240;
+
 	private Composite container;
 
-	private TableViewer tableViewer;
-
 	private TreeViewer treeViewer;
+
+	private TableViewer tableViewer;
 
 	@Inject
 	private MPart part;
@@ -98,11 +101,9 @@ public class FileTreePart {
 	}
 
 	public void createWizard(Composite container, File csv) {
-		final int width = 300;
-		final int height = 150;
 
 		WizardDialog dialog = new WizardDialog(container.getShell(), new CsvEditWizard(csv));
-		dialog.setPageSize(width, height);
+		dialog.setPageSize(EDIT_CSV_WIZARD_WIDHT, EDIT_CSV_WIZARD_HEIGHT);
 		if (dialog.open() == Window.OK) {
 			System.out.println("Ok pressed");
 		} else {

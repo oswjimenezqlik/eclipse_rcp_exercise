@@ -34,7 +34,7 @@ public class FileCountHandler {
 		Job job = new Job("First Job") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				doLongThing();
+				simulateHeavyOperation(5000);
 				String resultMessage;
 				try {
 					long fileCount = FileSystemService.countFilesInDirectory(file.getPath());
@@ -59,15 +59,13 @@ public class FileCountHandler {
 		return !processActive && (file != null && file.isDirectory());
 	}
 
-	private void doLongThing() {
-		for (int i = 0; i < 5; i++) {
-			try {
-				// We simulate a long running operation here
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Doing something");
+	private void simulateHeavyOperation(int miliseconds) {
+		try {
+			System.out.println(FileCountHandler.class.getSimpleName()
+					+ " - Performing non blocking heavy operation on the background (" +(miliseconds/1000)+ " seconds) ...");
+			Thread.sleep(miliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 

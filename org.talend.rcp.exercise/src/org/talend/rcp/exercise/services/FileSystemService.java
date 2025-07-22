@@ -27,15 +27,15 @@ public class FileSystemService {
 	}
 
 	/**
-	 * Get file count within the selected directory. The folder given as parameter
-	 * is excluded from the count
+	 * Get file count within the selected directory. Includes subdirectories and its
+	 * contents. The folder given as parameter is excluded from the count
 	 * 
 	 * @param directory
 	 * @return number of files inside the directory
 	 * @throws IOException if an error arises reading the file
 	 */
 	public static long countFilesInDirectory(String directory) throws IOException {
-		return Files.list(Paths.get(directory)).map(Path::toFile).count();
+		return Files.walk(Path.of(directory)).map(Path::toFile).count() - 1;
 	}
 
 	/**
