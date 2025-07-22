@@ -27,6 +27,9 @@ public class FileInfoPart {
 	private static final String FILE_TYPE = "Document"; // TODO: refactor in constants
 	private static final String FOLDER_TYPE = "Folder"; // TODO: refactor in constants
 
+	private static final int MIN_INFO_LABEL_WIDTH = 120;
+	private static final int MIN_INFO_LABLE_HEIGHT = 50;
+
 	private Label nameValueLabel;
 	private Label pathValueLabel;
 	private Label sizeValueLabel;
@@ -65,7 +68,8 @@ public class FileInfoPart {
 	}
 
 	protected GridData getGridDataForLabelInfo() {
-		return GridDataFactory.create(SWT.NONE).align(SWT.FILL, SWT.TOP).grab(true, false).span(1, 1).create();
+		return GridDataFactory.create(SWT.NONE).align(SWT.FILL, SWT.TOP).grab(true, false).span(1, 1)
+				.minSize(MIN_INFO_LABEL_WIDTH, MIN_INFO_LABLE_HEIGHT).create();
 	}
 
 	protected Label createAndAppendLabel(Composite container, String labelText) {
