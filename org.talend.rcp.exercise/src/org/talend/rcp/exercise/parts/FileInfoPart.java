@@ -30,6 +30,9 @@ public class FileInfoPart {
 	private static final int MIN_INFO_LABEL_WIDTH = 120;
 	private static final int MIN_INFO_LABLE_HEIGHT = 50;
 
+	private static final int GRID_VERTICAL_SPACING = 10;
+	private static final int GRID_HORIZONTAL_SPACING = 0;
+
 	private Label nameValueLabel;
 	private Label pathValueLabel;
 	private Label sizeValueLabel;
@@ -41,7 +44,9 @@ public class FileInfoPart {
 	@PostConstruct
 	public void createComposite(Composite parent) throws IOException {
 		container = new Composite(parent, SWT.NONE);
-		container.setLayout(new GridLayout(2, false));
+		GridLayout gridLayout = GridLayoutFactory.swtDefaults().numColumns(2).equalWidth(false)
+				.spacing(GRID_HORIZONTAL_SPACING, GRID_VERTICAL_SPACING).create();
+		container.setLayout(gridLayout);
 		container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		container.setBackground(ColorConstants.WHITE);
 
