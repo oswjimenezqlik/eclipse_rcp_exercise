@@ -87,6 +87,8 @@ public class CsvTableEditPage extends WizardPage {
 			}
 		});
 
+		viewerColumn.setEditingSupport(new CsvContentEditingSupport(tableViewer, columnIndex));
+
 		return viewerColumn;
 
 	}
