@@ -49,7 +49,7 @@ public class FileEditPart extends EditorPart {
 	private Composite parent;
 
 	private File selectedFile;
-	
+
 	private String defaultLabel;
 
 	@Inject
@@ -85,11 +85,16 @@ public class FileEditPart extends EditorPart {
 
 	protected void resetPart() {
 		part.setLabel(defaultLabel);
+		if (parent.isDisposed()) {
+			return;
+		}
+
 		for (Control child : parent.getChildren()) {
 			if (child != null && !child.isDisposed()) {
 				child.dispose();
 			}
 		}
+
 		sourceViewer = null;
 		decoratorSupport = null;
 		document = null;
@@ -204,7 +209,9 @@ public class FileEditPart extends EditorPart {
 
 	@Override
 	public void dispose() {
-		if (decoratorSupport != null) {
+		System.out.println("Disposing contents");
+		if ((sourceViewer != null) && (sourceViewer.getTextWidget() != null)
+				&& (!sourceViewer.getTextWidget().isDisposed()) && decoratorSupport != null) {
 			decoratorSupport.dispose();
 		}
 	}
