@@ -85,7 +85,7 @@ public class FileInfoPart {
 			nameValueLabel.setText(file.getName());
 			sizeValueLabel.setText(String.valueOf(file.length()));
 			dateModifiedValueLabel.setText(DateUtils.formatDate(file.lastModified()));
-			kindValueLabel.setText(file.isDirectory() ? FileType.FOLDER.getLabel() : FileType.DOCUMENT.getLabel());
+			kindValueLabel.setText(file.isDirectory() ? FileTypeEnum.FOLDER.getLabel() : FileTypeEnum.DOCUMENT.getLabel());
 			pathValueLabel.setText(file.getPath());
 			container.layout(true, true); // refresh composite
 		}

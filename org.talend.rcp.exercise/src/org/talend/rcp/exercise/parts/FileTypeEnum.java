@@ -1,9 +1,11 @@
 package org.talend.rcp.exercise.parts;
 
-public enum FileType {
+/**
+ * Type of files supported in File info view
+ */
+public enum FileTypeEnum {
 
-	DOCUMENT("Document"), 
-	FOLDER("Folder");
+	DOCUMENT("Document"), FOLDER("Folder");
 
 	private String label;
 
@@ -15,7 +17,7 @@ public enum FileType {
 		this.label = label;
 	}
 
-	FileType(String label) {
+	FileTypeEnum(String label) {
 		this.label = label;
 	}
 
