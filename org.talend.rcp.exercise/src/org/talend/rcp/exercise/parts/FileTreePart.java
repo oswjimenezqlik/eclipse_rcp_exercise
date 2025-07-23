@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.rcp.exercise.constants.FileConstants;
 import org.talend.rcp.exercise.providers.ColumnFileLabelProvider;
 import org.talend.rcp.exercise.providers.TreeFileContentProvider;
-import org.talend.rcp.exercise.services.FileSystemService;
+import org.talend.rcp.exercise.utils.FileSystemUtils;
 import org.talend.rcp.exercise.wizards.CsvEditWizard;
 
 import jakarta.annotation.PostConstruct;
@@ -67,7 +67,7 @@ public class FileTreePart {
 		viewerColumn.getColumn().setText("File names");
 		viewerColumn.setLabelProvider(new ColumnFileLabelProvider());
 
-		List<File> filesInRootDirectory = FileSystemService.getFilesInDirectory(ROOT_PATH);
+		List<File> filesInRootDirectory = FileSystemUtils.getFilesInDirectory(ROOT_PATH);
 		treeViewer.setInput(filesInRootDirectory);
 
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {

@@ -14,7 +14,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.rcp.exercise.services.FileSystemService;
+import org.talend.rcp.exercise.utils.FileSystemUtils;
 
 import jakarta.inject.Named;
 
@@ -37,7 +37,7 @@ public class FileCountHandler {
 				simulateHeavyOperation(5000);
 				String resultMessage;
 				try {
-					long fileCount = FileSystemService.countFilesInDirectory(file.getPath());
+					long fileCount = FileSystemUtils.countFilesInDirectory(file.getPath());
 					resultMessage = "Files in directory: " + fileCount;
 				} catch (IOException e) {
 					resultMessage = "There was an error conting the files inside directory: " + e.getMessage();

@@ -14,7 +14,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.rcp.exercise.constants.ColorConstants;
-import org.talend.rcp.exercise.services.DateUtils;
+import org.talend.rcp.exercise.utils.DateUtils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;

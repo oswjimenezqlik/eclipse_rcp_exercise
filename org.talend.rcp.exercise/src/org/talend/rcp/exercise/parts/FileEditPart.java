@@ -38,7 +38,7 @@ import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.talend.rcp.exercise.constants.FileConstants;
-import org.talend.rcp.exercise.services.FileSystemService;
+import org.talend.rcp.exercise.utils.FileSystemUtils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
@@ -162,7 +162,7 @@ public class FileEditPart extends EditorPart {
 			initPartControl();
 			parent.layout(true, true); // refresh composite
 		}
-		String textContent = FileSystemService.getFileContent(selectedFile);
+		String textContent = FileSystemUtils.getFileContent(selectedFile);
 
 		document.set(textContent);
 		dirtyable.setDirty(false);
@@ -172,7 +172,7 @@ public class FileEditPart extends EditorPart {
 	public void doSave(@Optional IProgressMonitor monitor) {
 		System.out.println("Saving file contents");
 		if ((document != null) && (selectedFile != null) && isDirty()) {
-			FileSystemService.writeFileContents(selectedFile, document.get());
+			FileSystemUtils.writeFileContents(selectedFile, document.get());
 			dirtyable.setDirty(false);
 		}
 	}

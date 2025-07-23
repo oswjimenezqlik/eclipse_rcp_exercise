@@ -1,4 +1,4 @@
-package org.talend.rcp.exercise.services;
+package org.talend.rcp.exercise.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,18 +8,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * TODO: Inject service using DI
+/**
+ * File system operation utilities
  */
-public class FileSystemService {
+public class FileSystemUtils {
 
+	/**
+	 * Gets contents of a file as string. To be used with text files
+	 * 
+	 * @param file to read
+	 * @return String contents of the file
+	 */
 	public static String getFileContent(File file) {
 		String fileContent = "";
 
 		try {
 			fileContent = Files.readString(file.toPath());
 		} catch (Exception e) {
-			System.out.println(FileSystemService.class.getSimpleName()
+			System.out.println(FileSystemUtils.class.getSimpleName()
 					+ " - there was an error getting file contents for file " + file.getName() + ": " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -27,8 +33,8 @@ public class FileSystemService {
 	}
 
 	/**
-	 * Get file count within the selected directory. Includes subdirectories and its
-	 * contents. The folder given as parameter is excluded from the count
+	 * Gets file count within the selected directory. Includes sub-directories and
+	 * its contents. The folder given as parameter is excluded from the count
 	 * 
 	 * @param directory
 	 * @return number of files inside the directory
@@ -49,19 +55,25 @@ public class FileSystemService {
 
 		try {
 			files = Files.list(Paths.get(directory)).map(Path::toFile).toList();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println(
-					FileSystemService.class.getSimpleName() + "- error getting files in directory: " + e.getMessage());
+					FileSystemUtils.class.getSimpleName() + "- error getting files in directory: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return files;
 	}
 
+	/**
+	 * Overwrites text content of a file
+	 * 
+	 * @param file   to write
+	 * @param string content to write
+	 */
 	public static void writeFileContents(File file, String string) {
 		try {
 			Files.writeString(file.toPath(), string);
-		} catch (IOException e) {
-			System.err.println(FileSystemService.class.getSimpleName() + "- error writing contents to file "
+		} catch (Exception e) {
+			System.err.println(FileSystemUtils.class.getSimpleName() + "- error writing contents to file "
 					+ file.getName() + "" + e.getMessage());
 			e.printStackTrace();
 		}
